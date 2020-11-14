@@ -1,0 +1,26 @@
+{
+  "name": "koma_drive",
+  "version": "1.0.0",
+  "description": "This is the koma DRIVE",
+  "main": "index.js",
+  "scripts": {
+    "test": "idk"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zekageri/Koma_DRIVE.git"
+  },
+  "keywords": [
+    "komadrive"
+  ],
+  "author": "Dr.Random",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zekageri/Koma_DRIVE/issues"
+  },
+  "homepage": "https://github.com/zekageri/Koma_DRIVE#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.6"
+  }
+}
