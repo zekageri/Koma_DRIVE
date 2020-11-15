@@ -118,14 +118,20 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="OwnNotify.js"></script>
     <script src="Folder.js"></script>
+    <script src="cookie.js"></script>
     <script>
         $( document ).ready(function() {
+            ReloadIfNoCookie();
             Notify("Sikeres bejelentkezés!","Üdvözöllek Koma!","success",1500);
             Get_DriveFolders();
             Folder_Things();
         }); 
-
-
+        function ReloadIfNoCookie(){
+            if( !getCookie("Reload") ){
+                setCookie("Reload",true,1);
+                location.reload();
+            }
+        }
     </script>
 </body>
 </html>

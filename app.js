@@ -79,8 +79,8 @@ app.get('/GetFolders', (req, res) => {
 app.get('/OwnNotify.js', (req, res) => {
   res.sendFile(__dirname + '/FrontEnd/SharedScripts/OwnNotify.js');
 })
-app.get('/Cookie.js', (req, res) => {
-  res.sendFile(__dirname + '/FrontEnd/SharedScripts/Cookie.js');
+app.get('/cookie.js', (req, res) => {
+  res.sendFile(__dirname + '/FrontEnd/SharedScripts/cookie.js');
 })
 /** SHARED SCRIPTS  */
 
