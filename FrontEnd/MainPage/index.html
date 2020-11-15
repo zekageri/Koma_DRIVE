@@ -13,23 +13,29 @@
 </head>
 <body>
 
-    <div class="filemanager">
+    <div class="OpenedFolder" style="display: none;">
+        <div class="container" style="margin-top:50px;">
+            <div class="row">
+                <div class="col-8" style="color:wheat">
+                    <h3 id="FolderNameOpened"></h3>
+                </div>
+                <div class="col" style="font-size:30px;">
+                    <a class="float-right"onclick="GetBackToFolders()"> <i class="fa fa-times"></i> </a>
+                </div>
+            </div>
+            
+          </div>
+    </div>
+
+    <div class="filemanager" style="display:block;">
         <div class="search">
             <input type="search" placeholder="Find a file.." />
         </div>
         <div class="breadcrumbs"><span class="folderName">Koma's Drive</span></div>
-        <ul class="data animated" id="folderholder">
-            <li class="folders">
-                <a href="#" title="#" class="folders">
-                    <span class="filesicon folder full"></span>
-                    <span class="name">Test</span>
-                    <span class="details">3 file</span>
-                </a>
-            </li>
-        </ul>
+        <ul class="data animated" id="folderholder"></ul>
         <div class="nothingfound" style="display: none;">
             <div class="nofiles"></div>
-            <span>Nincsenek File-ok vagy mappák.</span>
+            <span>Nincsenek Mappák</span>
         </div>
     </div>
 
@@ -48,8 +54,8 @@
 
                 <form>
                     <div class="form-group">
-                      <label for="foldername">Új Mappa Neve</label>
-                      <input type="text" class="form-control" id="foldername" aria-describedby="foldernameHelp" placeholder="Név">
+                      <label for="FolderName">Új Mappa Neve</label>
+                      <input type="text" class="form-control" id="FolderName" aria-describedby="foldernameHelp" placeholder="Név">
                       <small id="foldernameHelp" class="form-text text-muted">Ezzel a névvel fog létrejönni a mappa.</small>
                     </div>
                     <!--
@@ -97,7 +103,7 @@
             </div>
 
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Készít</button>
+              <button onclick="FolderFormCapture()" type="button" class="btn btn-primary">Készít</button>
               <button type="button" class="btn btn-warning" data-dismiss="modal">Mégsem</button>
             </div>
           </div>
@@ -106,10 +112,10 @@
 
     <div class="btn-group-fab" role="group" aria-label="FAB Menu">
         <div>
-          <button type="button" class="btn btn-main btn-primary has-tooltip" data-placement="left" title="Menu"> <i class="fa fa-file"></i> </button>
-          <button type="button" class="btn btn-sub btn-success has-tooltip" data-placement="left" title="Create"> <i class="fa fa-plus"></i> </button>
-          <button type="button" class="btn btn-sub btn-danger has-tooltip" data-placement="left" title="Delete"> <i class="fa fa-trash"></i> </button>
-          <button type="button" class="btn btn-sub btn-warning has-tooltip" data-placement="left" title="Download"> <i class="fa fa-download"></i> </button>
+          <button type="button" class="menubtn btn btn-main btn-primary has-tooltip" data-placement="left" title="Menu"> <i class="fa fa-file"></i> </button>
+          <button type="button" class="menubtn btn btn-sub btn-success has-tooltip" data-placement="left" title="Create"> <i class="fa fa-plus"></i> </button>
+          <button type="button" class="menubtn btn btn-sub btn-danger has-tooltip" data-placement="left" title="Delete"> <i class="fa fa-trash"></i> </button>
+          <button type="button" class="menubtn btn btn-sub btn-warning has-tooltip" data-placement="left" title="Download"> <i class="fa fa-download"></i> </button>
         </div>
     </div>
 
@@ -125,7 +131,22 @@
             Notify("Sikeres bejelentkezés!","Üdvözöllek Koma!","success",1500);
             Get_DriveFolders();
             Folder_Things();
-        }); 
+        });
+
+        function FolderFormCapture(){
+            var FolderNameNow = $("#FolderName").val();
+            $.post("/CreateFolder",{
+                FolderName: $("#FolderName").val(),
+            },
+            function(data,status){
+                if(data == "Success"){
+                    Notify("Mappa létrehozása sikeres! Mappa neve: " + FolderNameNow,"Mappa készítés","success",2500);
+                    Get_DriveFolders();
+                }else if(data == "Nope"){
+                    Notify("Mappa létrehozása sikertelen! Mappa neve: " + FolderNameNow,"Mappa készítés","danger",2500);
+                }
+            });
+        }
         function ReloadIfNoCookie(){
             if( !getCookie("Reload") ){
                 setCookie("Reload",true,1);

@@ -72,8 +72,21 @@ app.get('/Folder.js', (req, res) => {
 app.get('/GetFolders', (req, res) => {
   res.send(Fetch_Dirs());
 })
-
 /** DRIVE  */
+
+
+/** FOLDER MÜVELETEK */
+app.post('/CreateFolder', (req, res) => {
+  var DirName = "shared/drive/";
+  DirName += req.body.FolderName;
+    if (!fs.existsSync(DirName)){
+        fs.mkdirSync(DirName);
+        res.send("Success");
+    }else{
+        res.send("Nope");
+    }
+})
+/** FOLDER MÜVELETEK */
 
 /** SHARED SCRIPTS  */
 app.get('/OwnNotify.js', (req, res) => {

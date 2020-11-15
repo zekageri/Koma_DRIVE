@@ -20,8 +20,8 @@ var Notify = function(message,title,type,timer){
         offset: 0,
         spacing: 20,
         z_index: 1031,
-        delay: 3300,
-        timer: timer,
+        delay: timer,
+        timer: 1000,
         url_target: '_blank',
         mouse_over: null,
         animate: {
