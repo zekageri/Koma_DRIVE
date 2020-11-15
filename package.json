@@ -21,6 +21,9 @@
   "homepage": "https://github.com/zekageri/Koma_DRIVE#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "nodemon": "^2.0.6"
+    "klaw-sync": "^6.0.0",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.6",
+    "path": "^0.12.7"
   }
 }
