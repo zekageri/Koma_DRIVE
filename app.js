@@ -66,8 +66,8 @@ app.get('/index.css', (req, res) => {
 app.get('/files.css', (req, res) => {
   res.sendFile(__dirname + '/FrontEnd/MainPage/files.css');
 })
-app.get('/index.js', (req, res) => {
-  res.sendFile(__dirname + '/FrontEnd/MainPage/index.js');
+app.get('/Folder.js', (req, res) => {
+  res.sendFile(__dirname + '/FrontEnd/MainPage/Folder.js');
 })
 app.get('/GetFolders', (req, res) => {
   res.send(Fetch_Dirs());

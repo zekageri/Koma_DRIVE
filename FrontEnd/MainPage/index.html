@@ -117,102 +117,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mouse0270-bootstrap-notify/3.1.5/bootstrap-notify.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="OwnNotify.js"></script>
-    <!-- <script src="index.js"></script> -->
+    <script src="Folder.js"></script>
     <script>
-        var Drive = {};
         $( document ).ready(function() {
             Notify("Sikeres bejelentkezés!","Üdvözöllek Koma!","success",1500);
             Get_DriveFolders();
             Folder_Things();
         }); 
 
-        function Is_File(name){
-            if(name.includes(".")){
-                return true;
-            }else{
-                return false;
-            }
-        }
-
-        function Is_Folder_Exist(folder){
-            if(folder in Drive){
-                return true;
-            }else{
-                return false;
-            }
-        }
-        function Tear_Down_URLs(urls){
-            for(var i = 0; i < urls.length; i++){
-                var Splitted = urls[i].split("\\");
-                var Last = Splitted[Splitted.length - 1];
-                var Folder = Splitted[Splitted.length - 2];
-                if( Is_File(Last) ){
-                    if(Is_Folder_Exist(Folder)){
-                        Drive[Folder].push(Last);
-                    }else{
-                        Drive[Folder] = new Array();
-                        Drive[Folder].push(Last);
-                    }
-                }else{
-                    if( !Is_Folder_Exist(Last) ){
-                        Drive[Last] = new Array();
-                    }
-                }
-            }
-            console.log(Drive);
-        }
-
-        /*
-        <li class="folders">
-                <a href="#" title="#" class="folders">
-                    <span class="filesicon folder full"></span>
-                    <span class="name">Test2</span>
-                    <span class="details">4 file</span>
-                </a>
-            </li>
-        */
-        function Generate_Folder(FolderName,FileCount){
-            var $LI = $("<li>",{class:"folders"});
-            var $A  = $("<a>",{href:"#",title:"#",class:"folders"});
-            var $ICON = $("<span>",{class:"filesicon folder full",});
-            var $NAME = $("<span>",{class:"name",text:FolderName});
-            var $Files = $("<span>",{class:"details",text:FileCount});
-            
-                $A.append($ICON);
-                $A.append($NAME);
-                $A.append($Files);
-                $LI.append($A);
-                $("#folderholder").append($LI);
-        }
-
-        function Get_DriveFolders(){
-            $.get( "/GetFolders", function( data ) {
-                Tear_Down_URLs(data);
-                for (const [key, value] of Object.entries(Drive)) {
-                    Generate_Folder(key);
-                }
-            });
-        }
-
-        function Folder_Things(){
-            $('.btn-group-fab').on('click', '.btn', function() {
-                $('.btn-group-fab').toggleClass('active');
-                if($(this).prop("title") == "Create"){
-                    $('#CreateFolderModal').modal();
-                }
-            });
-            $('has-tooltip').tooltip();
-        }
-
-
-        $(".cf-folder-body").hover(function(){
-            $('.cf-folder-file1, .cf-folder-file2, .cf-folder-file3').toggleClass('cf-folder-file-hide');
-            $('.cf-folder-file1').toggleClass('cf-folder-file1-show');
-            $('.cf-folder-file2').toggleClass('cf-folder-file2-show');
-            $('.cf-folder-file3').toggleClass('cf-folder-file3-show');
-        });
-
-        
 
     </script>
 </body>
