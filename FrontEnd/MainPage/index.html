@@ -82,9 +82,13 @@
 
                         <div class="form-group">
                             <div class="custom-file mb-3">
-                                <input multiple type="file" class="custom-file-input" id="validatedCustomFile" required>
+                                <input multiple type="file" id="uploadfiles" class="custom-file-input" id="validatedCustomFile" required>
                                 <label class="custom-file-label" for="validatedCustomFile">Válassz Filet...</label>
                             </div>
+                        </div>
+
+                        <div class="progress">
+                            <div id="progbar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
 
                 </form>
@@ -190,7 +194,19 @@
             Get_DriveFolders();
             Folder_Things();
             Upload_Checkbox_Change();
+            Check_Files();
         });
+
+        function Check_Files(){
+            $('#uploadfiles').on('change', function () {
+                var file = this.files[0];
+                if (file.size > 5024) {
+                    Notify("Maximum File méret 5mb.","File Értesítés","warning",2000);
+                }else{
+                    Notify("Filek rendben vannak!","File Értesítés","success",2000);
+                }
+            });
+        }
 
         function FolderFormCapture(){
             var FolderNameNow = $("#FolderName").val();
@@ -207,19 +223,35 @@
             });
         }
         function FileFormCapture(){
-            var FolderNameNow = $("#FolderSelect").val();
-            console.log(FolderNameNow);
-            $.post("/UploadFile",{
-                FolderName: $("#FolderName").val(),
-            },
-            function(data,status){
-                if(data == "Success"){
-                    Notify("Mappa létrehozása sikeres! Mappa neve: " + FolderNameNow,"Mappa készítés","success",2500);
-                    Get_DriveFolders();
-                }else if(data == "Nope"){
-                    Notify("Mappa létrehozása sikertelen! Mappa neve: " + FolderNameNow,"Mappa készítés","danger",2500);
+            
+
+            $.ajax({
+                url: '/FileUploads',
+                type: 'POST',
+                data: new FormData($('#fileupload')[0]),
+                cache: false,
+                contentType: false,
+                processData: false,
+
+                xhr: function () {
+                var myXhr = $.ajaxSettings.xhr();
+                    if (myXhr.upload) {
+                        myXhr.upload.addEventListener('progress', function (e) {
+                            if (e.lengthComputable) {
+                                $("#progbar").prop("syle","width: " + e.loaded+"%"); // style="width: 0%;" aria-valuenow="0"
+                                $("#progbar").prop("aria-valuenow",e.loaded);
+                                $("#progbar").text(e.loaded+"%");
+                                /*$('progress').attr({
+                                    value: e.loaded,
+                                    max: e.total,
+                                });*/
+                            }
+                        }, false);
+                    }
+                return myXhr;
                 }
             });
+
         }
 
         function ReloadIfNoCookie(){

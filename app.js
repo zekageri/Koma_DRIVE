@@ -86,6 +86,11 @@ app.post('/CreateFolder', (req, res) => {
         res.send("Nope");
     }
 })
+
+app.post('/FileUploads', (req, res) => {
+  console.log( req.body );
+})
+
 /** FOLDER MÜVELETEK */
 
 /** SHARED SCRIPTS  */
