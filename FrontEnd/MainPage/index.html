@@ -39,6 +39,64 @@
         </div>
     </div>
 
+    <div id="UploadFileModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title">File Feltöltés</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+                <form id="fileupload">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="singleupload" value="option3" checked>
+                        <label class="form-check-label" for="singleupload">Egy File Feltöltése</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="multiupload" value="option3">
+                        <label class="form-check-label" for="multiupload">Több File Feltöltése</label>
+                    </div>
+                    <br><br>
+
+                    <div id="singlefileupload" style="display: block;">
+
+                        <div class="form-group">
+                            <label for="FolderName">Új file Neve (Opcionális)</label>
+                            <input type="text" class="form-control" id="FileName" aria-describedby="filenameHelp" placeholder="Név">
+                            <small id="filenameHelp" class="form-text text-muted">Ezzel a névvel fog feltöltődni a file.</small>
+                        </div>
+
+                    </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <label class="input-group-text" for="FolderSelect">Mappák</label>
+                            </div>
+                            <select class="custom-select" id="FolderSelect">
+                              <option value="0" selected>Válassz Mappát...</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="custom-file mb-3">
+                                <input multiple type="file" class="custom-file-input" id="validatedCustomFile" required>
+                                <label class="custom-file-label" for="validatedCustomFile">Válassz Filet...</label>
+                            </div>
+                        </div>
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+              <button onclick="FileFormCapture()" type="button" class="btn btn-primary">Feltöltés</button>
+              <button type="button" class="btn btn-warning" data-dismiss="modal">Mégsem</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
     <div id="CreateFolderModal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -115,7 +173,7 @@
           <button type="button" class="menubtn btn btn-main btn-primary has-tooltip" data-placement="left" title="Menu"> <i class="fa fa-file"></i> </button>
           <button type="button" class="menubtn btn btn-sub btn-success has-tooltip" data-placement="left" title="Create"> <i class="fa fa-plus"></i> </button>
           <button type="button" class="menubtn btn btn-sub btn-danger has-tooltip" data-placement="left" title="Delete"> <i class="fa fa-trash"></i> </button>
-          <button type="button" class="menubtn btn btn-sub btn-warning has-tooltip" data-placement="left" title="Download"> <i class="fa fa-download"></i> </button>
+          <button type="button" class="menubtn btn btn-sub btn-warning has-tooltip" data-placement="left" title="Upload"> <i class="fa fa-upload"></i> </button>
         </div>
     </div>
 
@@ -131,6 +189,7 @@
             Notify("Sikeres bejelentkezés!","Üdvözöllek Koma!","success",1500);
             Get_DriveFolders();
             Folder_Things();
+            Upload_Checkbox_Change();
         });
 
         function FolderFormCapture(){
@@ -147,6 +206,22 @@
                 }
             });
         }
+        function FileFormCapture(){
+            var FolderNameNow = $("#FolderSelect").val();
+            console.log(FolderNameNow);
+            $.post("/UploadFile",{
+                FolderName: $("#FolderName").val(),
+            },
+            function(data,status){
+                if(data == "Success"){
+                    Notify("Mappa létrehozása sikeres! Mappa neve: " + FolderNameNow,"Mappa készítés","success",2500);
+                    Get_DriveFolders();
+                }else if(data == "Nope"){
+                    Notify("Mappa létrehozása sikertelen! Mappa neve: " + FolderNameNow,"Mappa készítés","danger",2500);
+                }
+            });
+        }
+
         function ReloadIfNoCookie(){
             if( !getCookie("Reload") ){
                 setCookie("Reload",true,1);

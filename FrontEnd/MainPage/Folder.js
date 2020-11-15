@@ -67,6 +67,11 @@ var Drive = {};
                 $("#folderholder").append($LI);
         }
 
+        function Fill_Folder_Select_on_Upload(FolderName){
+            //<option value="1">One</option>
+            var $Option = $("<option>",{value:FolderName,text:FolderName});
+            $("#FolderSelect").append($Option);
+        }
         function Get_DriveFolders(){
             $.get( "/GetFolders", function( data ) {
                 Tear_Down_URLs(data);
@@ -74,6 +79,7 @@ var Drive = {};
                     $("#folderholder").html("");
                     for (const [key, value] of Object.entries(Drive)) {
                         Generate_Folder(key,Drive[key].length);
+                        Fill_Folder_Select_on_Upload(key);
                     }
                 }else{
                     $(".nothingfound").show();
@@ -81,11 +87,23 @@ var Drive = {};
             });
         }
 
+        function Upload_Checkbox_Change(){
+            $( "#multiupload" ).change(function() {
+                console.log("Single Upload: ", $("#singleupload").prop("checked") );
+                console.log("Multi Upload: ", $("#multiupload").prop("checked") );
+            });
+            $( "#singleupload" ).change(function() {
+                console.log("Single Upload: ", $("#singleupload").prop("checked") );
+                console.log("Multi Upload: ", $("#multiupload").prop("checked") );
+            });
+        }
         function Folder_Things(){
             $('.btn-group-fab').on('click', '.btn', function() {
                 $('.btn-group-fab').toggleClass('active');
                 if($(this).prop("title") == "Create"){
                     $('#CreateFolderModal').modal();
+                }else if($(this).prop("title") == "Upload"){
+                    $("#UploadFileModal").modal();
                 }
             });
             $('has-tooltip').tooltip();
