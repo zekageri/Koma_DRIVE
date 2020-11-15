@@ -11,6 +11,7 @@ app.use(express.json());
 
 var Restricted_Komas = {
   "Dr.Random" : "Mrrandom0829",
+  "admin"     : "admin",
 };
 
 function Fetch_Dirs(){
