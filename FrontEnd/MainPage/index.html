@@ -8,10 +8,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.3/animate.min.css">
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <h1>Drive</h1>
 
+
+    <div class="btn-group-fab" role="group" aria-label="FAB Menu">
+        <div>
+          <button type="button" class="btn btn-main btn-primary has-tooltip" data-placement="left" title="Menu"> <i class="fa fa-file"></i> </button>
+          <button type="button" class="btn btn-sub btn-success has-tooltip" data-placement="left" title="Fullscreen"> <i class="fa fa-plus"></i> </button>
+          <button type="button" class="btn btn-sub btn-danger has-tooltip" data-placement="left" title="Save"> <i class="fa fa-trash"></i> </button>
+          <button type="button" class="btn btn-sub btn-warning has-tooltip" data-placement="left" title="Download"> <i class="fa fa-download"></i> </button>
+        </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mouse0270-bootstrap-notify/3.1.5/bootstrap-notify.min.js"></script>
@@ -19,16 +28,29 @@
     <script src="OwnNotify.js"></script>
 
     <script>
+        var Drive = {};
         $( document ).ready(function() {
-            Notify("Sikeres bejelentkezés!","Üdvözöllek Koma!","success",2500);
+            Notify("Sikeres bejelentkezés!","Üdvözöllek Koma!","success",1500);
             Get_DriveFolders();
+            Folder_Things();
         });
 
+        function Tear_Down_URLs(urls){
+            console.log("All URL: ", urls);
+        }
         function Get_DriveFolders(){
             $.get( "/GetFolders", function( data ) {
-                console.log(data);
+                Tear_Down_URLs(data)
             });
         }
+
+        function Folder_Things(){
+            $('.btn-group-fab').on('click', '.btn', function() {
+                $('.btn-group-fab').toggleClass('active');
+            });
+            $('has-tooltip').tooltip();
+        }
+
 
     </script>
 </body>

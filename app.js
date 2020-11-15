@@ -19,7 +19,6 @@ function Fetch_Dirs(){
   for(var i = 0; i < paths.length; i++){
       items.push(paths[i].path);
   }
-  console.log("Dir items: ", items);
   return items;
 }
 
@@ -59,6 +58,9 @@ app.get('/AppIcon.png', (req, res) => {
 /** DRIVE  */
 app.get('/MainPage', (req, res) => {
   res.sendFile(__dirname + '/FrontEnd/MainPage/index.html');
+})
+app.get('/index.css', (req, res) => {
+  res.sendFile(__dirname + '/FrontEnd/MainPage/index.css');
 })
 
 app.get('/GetFolders', (req, res) => {
