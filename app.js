@@ -63,6 +63,9 @@ app.get('/MainPage', (req, res) => {
 app.get('/index.css', (req, res) => {
   res.sendFile(__dirname + '/FrontEnd/MainPage/index.css');
 })
+app.get('/files.css', (req, res) => {
+  res.sendFile(__dirname + '/FrontEnd/MainPage/files.css');
+})
 app.get('/index.js', (req, res) => {
   res.sendFile(__dirname + '/FrontEnd/MainPage/index.js');
 })
