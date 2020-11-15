@@ -10,6 +10,12 @@ app.get('/Login', (req, res) => {
   res.sendFile(__dirname + '/FrontEnd/Drive/Drive.html');
 })
 
+app.post('/KomaLogin', (req, res) => {
+  if(req.body != 0){
+    console.log(req.body);
+  }
+})
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })

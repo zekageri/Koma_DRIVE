@@ -23,20 +23,20 @@
 						<h2>Bejelentkezés</h2>
 					</div>
 					<div class="row">
-						<form control="" class="form-group">
+						<form id="komalogin" control="" class="form-group">
 							<div class="row">
-								<input type="text" name="username" id="username" class="form__input" placeholder="Username">
+								<input type="text" name="username" id="loginusername" class="form__input" placeholder="Username">
 							</div>
 							<div class="row">
 								<!-- <span class="fa fa-lock"></span> -->
-								<input type="password" name="password" id="password" class="form__input" placeholder="Password">
+								<input type="password" name="password" id="loginpassword" class="form__input" placeholder="Password">
 							</div>
 							<div class="row">
 								<input type="checkbox" name="remember_me" id="remember_me" class="">
 								<label for="remember_me">Emlékezz rám!</label>
 							</div>
 							<div class="row">
-								<input type="submit" value="Submit" class="btn">
+								<input onclick="KomaLoginCapture()" id="loginbtn" type="submit" value="Submit" class="btn">
 							</div>
 						</form>
 					</div>
@@ -54,5 +54,34 @@
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $( document ).ready(function() {
+            Login_On_Enter_Init();
+        });
+
+        function KomaLoginCapture(){
+            $.post("/KomaLogin",{
+                username: $("#loginusername").val(),
+                pw: $("#loginpassword").val()
+            },
+            function(data,status){
+                console.log(data);
+                if(data == "Success"){
+                    window.location.replace(window.location.hostname + '/Drive');
+                }
+            });
+        }
+
+        function Login_On_Enter_Init(){
+        $( "#komalogin" ).keyup(function(event) {
+            event.preventDefault();
+            if (event.which == 13) {
+                $("#loginbtn").click();
+              }
+        });
+    }
+
+    </script>
 </body>
 </html>
