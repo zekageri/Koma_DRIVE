@@ -15,6 +15,13 @@ const cors = require('cors');
 const morgan = require('morgan');
 const _ = require('lodash');
 
+
+/* static shared dir */
+let options = {
+
+};
+app.use(express.static("shared/drive",options));
+
 // enable files upload
 app.use(fileUpload({
   createParentPath: true
@@ -89,6 +96,17 @@ app.get('/Folder.js', (req, res) => {
   res.sendFile(__dirname + '/FrontEnd/MainPage/Folder.js');
 })
 
+/** OWNCAROUSEL */
+app.get('/owl.carousel.min.css', (req, res) => {
+  res.sendFile(__dirname + '/Libs/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css');
+})
+app.get('/owl.theme.default.min.css', (req, res) => {
+  res.sendFile(__dirname + '/Libs/OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css');
+})
+app.get('/owl.carousel.min.js', (req, res) => {
+  res.sendFile(__dirname + '/Libs/OwlCarousel2-2.3.4/dist/owl.carousel.min.js');
+})
+/** OWNCAROUSEL */
 app.get('/GetFolders', (req, res) => {
   res.send(Fetch_Dirs());
 })

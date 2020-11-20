@@ -33,7 +33,7 @@
                     }
                 }
             }
-            //console.log(Drive);
+            console.log(Drive);
         }
 
         function GetBackToFolders(){
@@ -41,11 +41,105 @@
             $(".OpenedFolder").hide();
         }
         function OpenFolder(Folder){
-            Notify(Folder,"Opening Folder...","warning",500);
+            Notify(Folder,"Mappa megnyitása...","warning",500);
             $("#FolderNameOpened").text(Folder);
             $(".filemanager").hide();
             $(".OpenedFolder").show();
+            Populate_Folder_With_Files(Folder);
+            Populate_Carousel(Folder);
         }
+
+        function OwlBox_Init(){
+            $('.owl-carousel').owlCarousel({
+                stagePadding: 50,
+                loop:true,
+                margin:10,
+                nav:true,
+                autoplay:true,
+                autoplayTimeout:1000,
+                autoplayHoverPause:true,
+                responsiveClass:true,
+                responsive:{
+                    0:{
+                        items:1
+                    },
+                    600:{
+                        items:3
+                    },
+                    1000:{
+                        items:5
+                    }
+                }
+            });
+        }
+
+        function Get_Extension(File){
+            var Splitted = File.split(".");
+            return Splitted[Splitted.length - 1];
+        }
+        var Allowed_Image_Extensions = ["jpg","jpeg","png",""];
+        function Populate_Carousel(Folder){
+            $("#OwlBox").empty();
+            $('.owl-carousel').trigger('destroy.owl.carousel').removeClass('owl-carousel owl-loaded');
+            $('.owl-carousel').find('.owl-stage-outer').children().unwrap();
+            if(Folder in Drive){
+                if(Drive[Folder].length > 0){
+                    var $OWLDIV = $("<div>",{class:"owl-carousel owl-theme"}); 
+                    for(var i = 0; i < Drive[Folder].length;i++){
+                        if(Allowed_Image_Extensions.includes( Get_Extension(Drive[Folder][i]) )){
+                            var $DIV = $("<div>",{class:"item"});
+                            var $IMG = $("<img>",{style:"max-width:150px;max-height:200px;",src:Folder+"/"+Drive[Folder][i], class:"img-fluid"});
+                            $DIV.append($IMG);
+                            $OWLDIV.append($DIV);
+                            $("#OwlBox").append($OWLDIV);
+                        }
+                    }
+                    OwlBox_Init();
+                }
+            }
+        }
+
+        function Big_Div_Event() {
+            $('.IMG__link').click(function () {
+                var imgurl = $(this).prop("src");
+                var src = imgurl.replace(/.*\s?url\([\'\"]?/, '').replace(/[\'\"]?\).*/, '');
+                var modal;
+                function removeModal() { modal.remove(); $('body').off('keyup.modal-close'); }
+                modal = $('<div>').css({
+                    background: 'RGBA(0,0,0,.5) url(' + src + ') no-repeat center',
+                    backgroundSize: 'contain',
+                    width: '100%', height: '100%',
+                    position: 'fixed',
+                    zIndex: '10000',
+                    top: '0', left: '0',
+                    cursor: 'zoom-out'
+                }).click(function () {
+                    removeModal();
+                }).appendTo('body');
+                //handling ESC
+                $('body').on('keyup.modal-close', function (e) {
+                    if (e.key === 'Escape') { removeModal(); }
+                });
+            });
+        }
+
+        function Populate_Folder_With_Files(Folder){
+            $("#Next_Folder_Content").empty();
+            if(Folder in Drive){
+                for(var i = 0; i < Drive[Folder].length;i++){
+                    var $COL = $("<div>",{class:"col d-flex justify-content-center"});
+                    if(Allowed_Image_Extensions.includes( Get_Extension(Drive[Folder][i]) )){
+                        var $IMG = $("<img>",{src:Folder+"/"+Drive[Folder][i], class:"IMG__link img-fluid",style:"margin:10px;max-width:150px;"});
+                        $COL.append($IMG);
+                    }else{
+                        
+                    }
+                    $("#Next_Folder_Content").append($COL);
+                }
+            }
+            Big_Div_Event();
+        }
+
         var SelectedFolder = "";
         function SelectFolder(Folder){
             SelectedFolder = Folder;
