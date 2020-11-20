@@ -54,9 +54,11 @@
                 stagePadding: 50,
                 loop:true,
                 margin:10,
+                items:3,
                 nav:true,
+                dots:false,
                 autoplay:true,
-                autoplayTimeout:1000,
+                autoplayTimeout:1500,
                 autoplayHoverPause:true,
                 responsiveClass:true,
                 responsive:{
@@ -132,7 +134,7 @@
                         var $IMG = $("<img>",{src:Folder+"/"+Drive[Folder][i], class:"IMG__link img-fluid",style:"margin:10px;max-width:150px;"});
                         $COL.append($IMG);
                     }else{
-                        
+
                     }
                     $("#Next_Folder_Content").append($COL);
                 }
