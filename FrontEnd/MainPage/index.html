@@ -53,99 +53,105 @@
 
     <div id="UploadFileModal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h3 class="modal-title">File Feltöltés</h3>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-
-            <div class="modal-body">
-                <form id="fileupload">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="singleupload" value="option3">
-                        <label class="form-check-label" for="singleupload">Egy File Feltöltése</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="multiupload" value="option3" checked>
-                        <label class="form-check-label" for="multiupload">Több File Feltöltése</label>
-                    </div>
-                    <br><br>
-
-                    <div id="singlefileupload" style="display: none;">
-
-                        <div class="form-group">
-                            <label for="FolderName">Új file Neve (Opcionális)</label>
-                            <input type="text" class="form-control" id="FileName" aria-describedby="filenameHelp" placeholder="Név">
-                            <small id="filenameHelp" class="form-text text-muted">Ezzel a névvel fog feltöltődni a file.</small>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">File Feltöltés</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+    
+                <div class="modal-body">
+                    <form id="fileupload">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="singleupload"
+                                value="option3">
+                            <label class="form-check-label" for="singleupload">Egy File Feltöltése</label>
                         </div>
-
-                    </div>
-
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="multiupload"
+                                value="option3" checked>
+                            <label class="form-check-label" for="multiupload">Több File Feltöltése</label>
+                        </div>
+                        <br><br>
+    
+                        <div id="singlefileupload" style="display: none;">
+    
+                            <div class="form-group">
+                                <label for="FolderName">Új file Neve (Opcionális)</label>
+                                <input type="text" class="form-control" id="FileName" aria-describedby="filenameHelp"
+                                    placeholder="Név">
+                                <small id="filenameHelp" class="form-text text-muted">Ezzel a névvel fog feltöltődni a
+                                    file.</small>
+                            </div>
+    
+                        </div>
+    
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                              <label class="input-group-text" for="FolderSelect">Mappák</label>
+                                <label class="input-group-text" for="FolderSelect">Mappák</label>
                             </div>
                             <select class="custom-select" id="FolderSelect">
-                              <option value="0" selected>Válassz Mappát...</option>
+                                <option value="0" selected>Válassz Mappát...</option>
                             </select>
                         </div>
-
+    
                         <div class="form-group">
                             <div class="custom-file mb-3">
-                                <input multiple type="file" id="uploadfiles" class="custom-file-input" id="validatedCustomFile" required>
+                                <input multiple type="file" id="uploadfiles" class="custom-file-input"
+                                    id="validatedCustomFile" required>
                                 <label class="custom-file-label" for="validatedCustomFile">Válassz Fileket...</label>
                             </div>
                         </div>
-
+    
                         <div class="form-group">
                             <div id="fileprogress" class="progress" style="display:none">
-                                <div class="progress-bar progress-bar-striped indeterminate">
+                                <div class="progress-bar progress-bar-striped indeterminate"></div>
                             </div>
                         </div>
-
-                </form>
+                    </form>
+                </div>
+    
+                <div class="modal-footer">
+                    <button onclick="FileFormCapture()" type="button" class="btn btn-primary">Feltöltés</button>
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Mégsem</button>
+                </div>
             </div>
-
-            <div class="modal-footer">
-              <button onclick="FileFormCapture()" type="button" class="btn btn-primary">Feltöltés</button>
-              <button type="button" class="btn btn-warning" data-dismiss="modal">Mégsem</button>
-            </div>
-          </div>
         </div>
-      </div>
+    </div>
 
     <div id="CreateFolderModal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h3 class="modal-title">Mappa készítés</h3>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Mappa készítés</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+    
+                <div class="modal-body">
+    
+                    <form>
+                        <div class="form-group">
+                            <label for="FolderName">Új Mappa Neve</label>
+                            <input type="text" class="form-control" id="FolderName" aria-describedby="foldernameHelp"
+                                placeholder="Név">
+                            <small id="foldernameHelp" class="form-text text-muted">Ezzel a névvel fog létrejönni a
+                                mappa.</small>
+                        </div>
+                    </form>
+    
+                </div>
+    
+                <div class="modal-footer">
+                    <button onclick="FolderFormCapture()" type="button" class="btn btn-primary">Készít</button>
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Mégsem</button>
+                </div>
             </div>
-
-            <div class="modal-body">
-
-                <form>
-                    <div class="form-group">
-                      <label for="FolderName">Új Mappa Neve</label>
-                      <input type="text" class="form-control" id="FolderName" aria-describedby="foldernameHelp" placeholder="Név">
-                      <small id="foldernameHelp" class="form-text text-muted">Ezzel a névvel fog létrejönni a mappa.</small>
-                    </div>
-                </form>
-
-            </div>
-
-            <div class="modal-footer">
-              <button onclick="FolderFormCapture()" type="button" class="btn btn-primary">Készít</button>
-              <button type="button" class="btn btn-warning" data-dismiss="modal">Mégsem</button>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
+
     <div class="btn-group-fab" role="group" aria-label="FAB Menu">
         <div>
           <button type="button" class="menubtn btn btn-main btn-primary has-tooltip" data-placement="left" title="Menu"> <i class="fa fa-file"></i> </button>
