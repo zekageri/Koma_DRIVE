@@ -2,9 +2,27 @@ const express = require('express');
 var fs        = require('fs');
 const app     = express();
 const port    = 3000;
+
+/**  FILE HANDLING **/
 const klawSync  =   require('klaw-sync')
 var mysql       =   require('mysql');
 const path      =   require('path');
+/**  FILE HANDLING **/
+
+/** FILE UPLOAD  */
+const fileUpload = require('express-fileupload');
+const cors = require('cors');
+const morgan = require('morgan');
+const _ = require('lodash');
+
+// enable files upload
+app.use(fileUpload({
+  createParentPath: true
+}));
+
+app.use(cors());
+app.use(morgan('dev'));
+/** FILE UPLOAD  */
 
 app.use(express.urlencoded());
 app.use(express.json());
@@ -28,6 +46,7 @@ function Search_Koma(user,pw){
   for (const [key, value] of Object.entries(Restricted_Komas)) {
     if(key == user && value == pw){
       IsFound = true;
+      break;
     }
   }
   return IsFound;
@@ -87,9 +106,72 @@ app.post('/CreateFolder', (req, res) => {
     }
 })
 
-app.post('/FileUploads', (req, res) => {
-  console.log( req.body );
-})
+app.post('/Multi_FileUploads', async (req, res) => {
+  try {
+      var FolderName = req.body.FolderName;
+      if(!req.files) {
+          res.send({
+              status: false,
+              message: 'No file uploaded'
+          });
+      } else {
+          let data = []; 
+          for(var i = 0; i < req.files.files.length;i++){
+            var File = req.files.files[i];
+            console.log(File);
+            File.mv('./shared/drive/'+FolderName+"/" + File.name);
+            data.push({
+              name: File.name,
+              mimetype: File.mimetype,
+              size: File.size
+            });
+          }
+          res.send({
+              status: true,
+              message: 'Files are uploaded',
+              data: data
+          });
+      }
+  } catch (err) {
+      res.status(500).send(err);
+  }
+});
+
+app.post('/Single_FileUploads', async (req, res) => {
+  try {
+      var FolderName = req.body.FolderName;
+      var FolderPath = './shared/drive/'+FolderName+"/";
+      if(FolderName == "drive"){
+        FolderPath = './shared/drive/';
+      }else{
+        FolderPath = './shared/drive/'+FolderName+"/";
+      }
+      if(!req.files) {
+          res.send({
+              status: false,
+              message: 'No file uploaded'
+          });
+      } else {
+          let data = []; 
+          for(var i = 0; i < req.files.files.length;i++){
+            var File = req.files.files[i];
+            File.mv(FolderPath + File.name);
+            data.push({
+              name: File.name,
+              mimetype: File.mimetype,
+              size: File.size
+            });
+          }
+          res.send({
+              status: true,
+              message: 'Files are uploaded',
+              data: data
+          });
+      }
+  } catch (err) {
+      res.status(500).send(err);
+  }
+});
 
 /** FOLDER MÜVELETEK */
 

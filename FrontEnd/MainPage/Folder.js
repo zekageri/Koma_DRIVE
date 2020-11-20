@@ -1,4 +1,5 @@
-var Drive = {};
+    var Drive = {};
+    var FileURL = "/Multi_FileUploads";
         function Is_File(name){
             if(name.includes(".")){
                 return true;
@@ -89,12 +90,16 @@ var Drive = {};
 
         function Upload_Checkbox_Change(){
             $( "#multiupload" ).change(function() {
-                console.log("Single Upload: ", $("#singleupload").prop("checked") );
-                console.log("Multi Upload: ", $("#multiupload").prop("checked") );
+                //console.log("Single Upload: ", $("#singleupload").prop("checked") );
+                //console.log("Multi Upload: ", $("#multiupload").prop("checked") );
+                $("#singlefileupload").hide();
+                FileURL = "/Multi_FileUploads";
             });
             $( "#singleupload" ).change(function() {
-                console.log("Single Upload: ", $("#singleupload").prop("checked") );
-                console.log("Multi Upload: ", $("#multiupload").prop("checked") );
+                //console.log("Single Upload: ", $("#singleupload").prop("checked") );
+                //console.log("Multi Upload: ", $("#multiupload").prop("checked") );
+                $("#singlefileupload").show();
+                FileURL = "/Single_FileUploads";
             });
         }
         function Folder_Things(){

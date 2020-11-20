@@ -52,16 +52,16 @@
             <div class="modal-body">
                 <form id="fileupload">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="singleupload" value="option3" checked>
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="singleupload" value="option3">
                         <label class="form-check-label" for="singleupload">Egy File Feltöltése</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="multiupload" value="option3">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="multiupload" value="option3" checked>
                         <label class="form-check-label" for="multiupload">Több File Feltöltése</label>
                     </div>
                     <br><br>
 
-                    <div id="singlefileupload" style="display: block;">
+                    <div id="singlefileupload" style="display: none;">
 
                         <div class="form-group">
                             <label for="FolderName">Új file Neve (Opcionális)</label>
@@ -83,7 +83,7 @@
                         <div class="form-group">
                             <div class="custom-file mb-3">
                                 <input multiple type="file" id="uploadfiles" class="custom-file-input" id="validatedCustomFile" required>
-                                <label class="custom-file-label" for="validatedCustomFile">Válassz Filet...</label>
+                                <label class="custom-file-label" for="validatedCustomFile">Válassz Fileket...</label>
                             </div>
                         </div>
 
@@ -120,48 +120,8 @@
                       <input type="text" class="form-control" id="FolderName" aria-describedby="foldernameHelp" placeholder="Név">
                       <small id="foldernameHelp" class="form-text text-muted">Ezzel a névvel fog létrejönni a mappa.</small>
                     </div>
-                    <!--
-                    <div class="form-group">
-                        <label class="settinglabel">Ikon</label>
-                        <input type="text" class="icon-class-input" value="fa fa-music" />
-                        <button type="button" class="btn btn-primary picker-button">Ikon kiválasztása</button>
-                        <span class="demo-icon"></span>
-                    </div>
-                -->
                 </form>
-<!-- 
-                <div id="iconPicker" style="display: none;">
-                    <div class="modal-dialog">
-                        <div class="modal-content iconcontent">
-                            <div class="modal-header">
-                                <button type="button" class="close right" onclick="closeIconPicker()" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <h4 class="modal-title left">Ikon Választó</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div>
-                                    <ul class="icon-picker-list">
-                                        <li>
-                                            <a data-class="{{item}} {{activeState}}" data-index="{{index}}">
-                                                <span class="{{item}}"></span>
-                                                <span class="name-class">{{item}}</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" id="change-icon" class="btn btn-success">
-                                    <span class="fa fa-check-circle-o"></span>
-                                    Kiválasztott Ikon használata
-                                </button>
-                                <button type="button" class="btn btn-default" onclick="closeIconPicker()">Mégsem</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            -->
+
             </div>
 
             <div class="modal-footer">
@@ -194,8 +154,9 @@
             Get_DriveFolders();
             Folder_Things();
             Upload_Checkbox_Change();
-            Check_Files();
+            //Check_Files();
         });
+
 
         function Check_Files(){
             $('#uploadfiles').on('change', function () {
@@ -222,36 +183,36 @@
                 }
             });
         }
+
         function FileFormCapture(){
-            
-
-            $.ajax({
-                url: '/FileUploads',
-                type: 'POST',
-                data: new FormData($('#fileupload')[0]),
-                cache: false,
-                contentType: false,
-                processData: false,
-
-                xhr: function () {
-                var myXhr = $.ajaxSettings.xhr();
-                    if (myXhr.upload) {
-                        myXhr.upload.addEventListener('progress', function (e) {
-                            if (e.lengthComputable) {
-                                $("#progbar").prop("syle","width: " + e.loaded+"%"); // style="width: 0%;" aria-valuenow="0"
-                                $("#progbar").prop("aria-valuenow",e.loaded);
-                                $("#progbar").text(e.loaded+"%");
-                                /*$('progress').attr({
-                                    value: e.loaded,
-                                    max: e.total,
-                                });*/
-                            }
-                        }, false);
+            var Folder = $("#FolderSelect").val();
+            if( Folder != "0"){
+                var totalfiles = document.getElementById('uploadfiles').files.length;
+                if(totalfiles > 0 ){
+                    var formData = new FormData();
+                    for (var index = 0; index < totalfiles; index++) {
+                        formData.append("files", document.getElementById('uploadfiles').files[index]);
                     }
-                return myXhr;
+                    formData.append("FolderName",Folder);
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.open("POST", FileURL, true);
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            var response = JSON.parse(this.responseText);
+                            if(response.message == "Files are uploaded"){
+                                Notify("Filek sikeresen feltöltve!","File feltöltés","success",2500);
+                            }else{
+                                Notify("File feltöltések nem sikerültek!","File feltöltés","danger",2500);
+                            }
+                        }
+                    };
+                    xhttp.send(formData);
+                }else{
+                    Notify("Választanod kell legalább egy filet!","File feltöltés","danger",2500);
                 }
-            });
-
+            }else{
+                Notify("Választanod kell egy mappát!","File feltöltés","danger",2500);
+            }
         }
 
         function ReloadIfNoCookie(){
