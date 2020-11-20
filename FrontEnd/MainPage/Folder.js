@@ -155,7 +155,7 @@
             var $A  = $("<a>",{href:"#",title:FolderName,class:"folders", onclick:"OpenFolder('"+FolderName+"')"}); //ondblclick:"OpenFolder('"+FolderName+"')"
             var $ICON = $("<span>",{class:"filesicon folder full",});
             var $NAME = $("<span>",{class:"name",text:FolderName});
-            var $Files = $("<span>",{class:"details",text:FileCount});
+            var $Files = $("<span>",{class:"details",text:FileCount + " file"});
             
                 $A.append($ICON);
                 $A.append($NAME);

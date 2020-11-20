@@ -127,7 +127,7 @@
     
                 <div class="modal-footer">
                     <button onclick="FileFormCapture()" type="button" class="btn btn-primary">Feltöltés</button>
-                    <button type="button" class="btn btn-warning" data-dismiss="modal">Mégsem</button>
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Vissza</button>
                 </div>
             </div>
         </div>
@@ -159,7 +159,7 @@
     
                 <div class="modal-footer">
                     <button onclick="FolderFormCapture()" type="button" class="btn btn-primary">Készít</button>
-                    <button type="button" class="btn btn-warning" data-dismiss="modal">Mégsem</button>
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Vissza</button>
                 </div>
             </div>
         </div>
@@ -224,6 +224,7 @@
             var Folder = $("#FolderSelect").val();
             if( Folder != "0"){
                 $("#fileprogress").show();
+                Notify("Fileok feltöltése a háttérben zajlik tovább...","File feltöltés","warning",3500);
                 var totalfiles = document.getElementById('uploadfiles').files.length;
                 if(totalfiles > 0 ){
                     var formData = new FormData();
