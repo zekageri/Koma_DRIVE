@@ -142,14 +142,14 @@
             $("#Next_Folder_Content").empty();
             if(Folder in Drive){
                 for(var i = 0; i < Drive[Folder].length;i++){
-                    var $COL = $("<div>",{class:"col d-flex justify-content-center",style:"cursor:pointer"});
                     if(Allowed_Image_Extensions.includes( Get_Extension(Drive[Folder][i]) )){
+                        var $COL = $("<div>",{class:"col d-flex justify-content-center",style:"cursor:pointer"});
                         var $IMG = $("<img>",{src:Folder+"/"+Drive[Folder][i], class:"IMG__link img-fluid",style:"margin:10px;max-width:50px;"});
                         $COL.append($IMG);
+                        $("#Next_Folder_Content").append($COL);
                     }else{
 
                     }
-                    $("#Next_Folder_Content").append($COL);
                 }
             }
             Big_Div_Event();
@@ -161,12 +161,16 @@
             Notify("","Kiválasztott Mappa: " + SelectedFolder,"success",1500);
         }
         function Generate_Folder(FolderName,FileCount){
+            var IsFull = "";
             if(FolderName == "drive"){
                 FolderName = "Gyökér Mappa";
             }
+            if(FileCount > 0){
+                IsFull = "full";
+            }
             var $LI = $("<li>",{class:"folders"});
             var $A  = $("<a>",{href:"#",title:FolderName,class:"folders", onclick:"OpenFolder('"+FolderName+"')"}); //ondblclick:"OpenFolder('"+FolderName+"')"
-            var $ICON = $("<span>",{class:"filesicon folder full",});
+            var $ICON = $("<span>",{class:"filesicon folder " + IsFull,});
             var $NAME = $("<span>",{class:"name",text:FolderName});
             var $Files = $("<span>",{class:"details",text:FileCount + " file"});
             

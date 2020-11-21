@@ -128,6 +128,12 @@ app.post('/CreateFolder', (req, res) => {
 app.post('/Multi_FileUploads', async (req, res) => {
   try {
       var FolderName = req.body.FolderName;
+      var FolderPath = './shared/drive/'+FolderName+"/";
+      if(FolderName == "drive"){
+        FolderPath = './shared/drive/';
+      }else{
+        FolderPath = './shared/drive/'+FolderName+"/";
+      }
       if(!req.files) {
           res.send({
               status: false,
@@ -137,8 +143,8 @@ app.post('/Multi_FileUploads', async (req, res) => {
           let data = []; 
           for(var i = 0; i < req.files.files.length;i++){
             var File = req.files.files[i];
-            console.log(File);
-            File.mv('./shared/drive/'+FolderName+"/" + File.name);
+            //console.log(File);
+            File.mv(FolderPath + File.name);
             data.push({
               name: File.name,
               mimetype: File.mimetype,
