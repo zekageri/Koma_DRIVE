@@ -36,6 +36,19 @@
             console.log(Drive);
         }
 
+        function preloadImage(url){
+            var img=new Image();
+            img.src=url;
+        }
+
+        function Get_All_Images_for_Preload(){
+            for (const [key, value] of Object.entries(Drive)) {
+                for(var i = 0; i < Drive[key].length;i++){
+                    preloadImage( Drive[key][i] );
+                }
+            }
+        }
+
         function GetBackToFolders(){
             $(".filemanager").show();
             $(".OpenedFolder").hide();
@@ -129,7 +142,7 @@
             $("#Next_Folder_Content").empty();
             if(Folder in Drive){
                 for(var i = 0; i < Drive[Folder].length;i++){
-                    var $COL = $("<div>",{class:"col d-flex justify-content-center"});
+                    var $COL = $("<div>",{class:"col d-flex justify-content-center",style:"cursor:pointer"});
                     if(Allowed_Image_Extensions.includes( Get_Extension(Drive[Folder][i]) )){
                         var $IMG = $("<img>",{src:Folder+"/"+Drive[Folder][i], class:"IMG__link img-fluid",style:"margin:10px;max-width:150px;"});
                         $COL.append($IMG);
@@ -182,6 +195,7 @@
                     $(".nothingfound").show();
                 }
             });
+            Get_All_Images_for_Preload();
         }
 
         function Upload_Checkbox_Change(){
