@@ -144,7 +144,7 @@
                 for(var i = 0; i < Drive[Folder].length;i++){
                     var $COL = $("<div>",{class:"col d-flex justify-content-center",style:"cursor:pointer"});
                     if(Allowed_Image_Extensions.includes( Get_Extension(Drive[Folder][i]) )){
-                        var $IMG = $("<img>",{src:Folder+"/"+Drive[Folder][i], class:"IMG__link img-fluid",style:"margin:10px;max-width:150px;"});
+                        var $IMG = $("<img>",{src:Folder+"/"+Drive[Folder][i], class:"IMG__link img-fluid",style:"margin:10px;max-width:50px;"});
                         $COL.append($IMG);
                     }else{
 
