@@ -152,16 +152,17 @@
             $("#Next_Folder_Video_Content").empty();
             if(Folder in Drive){
                 for(var i = 0; i < Drive[Folder].length;i++){
-                    if(Allowed_Image_Extensions.includes( Get_Extension(Drive[Folder][i]) )){
+                    var Extension = Get_Extension(Drive[Folder][i]);
+                    if(Allowed_Image_Extensions.includes( Extension )){
                         preloadImage( Folder+"/"+Drive[Folder][i] );
                         var $COL = $("<div>",{class:"col d-flex justify-content-center",style:"cursor:pointer"});
                         var $IMG = $("<img>",{src:Folder+"/"+Drive[Folder][i], class:"IMG__link img-fluid",style:"margin:10px;max-width:50px;"});
                         $COL.append($IMG);
                         $("#Next_Folder_Content").append($COL);
-                    }else if(Allowed_Video_Extensions.includes( Get_Extension(Drive[Folder][i]) )){
+                    }else if(Allowed_Video_Extensions.includes( Extension )){
                         var $COL = $("<div>",{class:"col d-flex justify-content-center",style:"cursor:pointer"});
                         var $VIDDIV = $("<video>",{width:"400",controls});
-                        var $VID    = $("<source>",{class:"embed-responsive-item",src:Folder+"/"+Drive[Folder][i], type="video/"+Get_Extension(Drive[Folder][i]) });
+                        var $VID    = $("<source>",{class:"embed-responsive-item",src:Folder+"/"+Drive[Folder][i], type="video/"+Extension });
                         $VIDDIV.append($VID);
                         $COL.append($VIDDIV);
                         $("#Next_Folder_Video_Content").append($COL);
