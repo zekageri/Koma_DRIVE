@@ -141,9 +141,11 @@
         }
 
         /*
-<div class="embed-responsive embed-responsive-16by9">
-  <iframe class="embed-responsive-item" src="..."></iframe>
-</div>
+<video width="400" controls>
+  <source src="mov_bbb.mp4" type="video/mp4">
+  <source src="mov_bbb.ogg" type="video/ogg">
+  Your browser does not support HTML video.
+</video>
         */
         function Populate_Folder_With_Files(Folder){
             $("#Next_Folder_Content").empty();
@@ -158,8 +160,8 @@
                         $("#Next_Folder_Content").append($COL);
                     }else if(Allowed_Video_Extensions.includes( Get_Extension(Drive[Folder][i]) )){
                         var $COL = $("<div>",{class:"col d-flex justify-content-center",style:"cursor:pointer"});
-                        var $VIDDIV = $("<div>",{class:"embed-responsive"});
-                        var $VID    = $("<iframe>",{class:"embed-responsive-item",src:Folder+"/"+Drive[Folder][i]});
+                        var $VIDDIV = $("<video>",{width:"400",controls});
+                        var $VID    = $("<source>",{class:"embed-responsive-item",src:Folder+"/"+Drive[Folder][i], type="video/"+Get_Extension(Drive[Folder][i]) });
                         $VIDDIV.append($VID);
                         $COL.append($VIDDIV);
                         $("#Next_Folder_Video_Content").append($COL);
