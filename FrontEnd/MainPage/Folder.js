@@ -41,13 +41,14 @@
             img.src=url;
         }
 
+        /*
         function Get_All_Images_for_Preload(){
             for (const [key, value] of Object.entries(Drive)) {
                 for(var i = 0; i < Drive[key].length;i++){
                     preloadImage( Drive[key][i] );
                 }
             }
-        }
+        }*/
 
         function GetBackToFolders(){
             $(".filemanager").show();
@@ -147,6 +148,7 @@
                         var $IMG = $("<img>",{src:Folder+"/"+Drive[Folder][i], class:"IMG__link img-fluid",style:"margin:10px;max-width:50px;"});
                         $COL.append($IMG);
                         $("#Next_Folder_Content").append($COL);
+                        preloadImage( Folder+"/"+Drive[Folder][i] );
                     }else{
 
                     }
@@ -199,7 +201,7 @@
                     $(".nothingfound").show();
                 }
             });
-            Get_All_Images_for_Preload();
+            //Get_All_Images_for_Preload();
         }
 
         function Upload_Checkbox_Change(){
