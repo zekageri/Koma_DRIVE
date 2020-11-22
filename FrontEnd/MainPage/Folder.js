@@ -93,7 +93,8 @@
             var Splitted = File.split(".");
             return Splitted[Splitted.length - 1];
         }
-        var Allowed_Image_Extensions = ["jpg","jpeg","png",""];
+        var Allowed_Image_Extensions = ["jpg","jpeg","png"];
+        var Allowed_Video_Extensions = ["mp4","mpeg"];
         function Populate_Carousel(Folder){
             $("#OwlBox").empty();
             $('.owl-carousel').trigger('destroy.owl.carousel').removeClass('owl-carousel owl-loaded');
@@ -139,18 +140,29 @@
             });
         }
 
+        /*
+<div class="embed-responsive embed-responsive-16by9">
+  <iframe class="embed-responsive-item" src="..."></iframe>
+</div>
+        */
         function Populate_Folder_With_Files(Folder){
             $("#Next_Folder_Content").empty();
+            $("#Next_Folder_Video_Content").empty();
             if(Folder in Drive){
                 for(var i = 0; i < Drive[Folder].length;i++){
                     if(Allowed_Image_Extensions.includes( Get_Extension(Drive[Folder][i]) )){
+                        preloadImage( Folder+"/"+Drive[Folder][i] );
                         var $COL = $("<div>",{class:"col d-flex justify-content-center",style:"cursor:pointer"});
                         var $IMG = $("<img>",{src:Folder+"/"+Drive[Folder][i], class:"IMG__link img-fluid",style:"margin:10px;max-width:50px;"});
                         $COL.append($IMG);
                         $("#Next_Folder_Content").append($COL);
-                        preloadImage( Folder+"/"+Drive[Folder][i] );
-                    }else{
-
+                    }else if(Allowed_Video_Extensions.includes( Get_Extension(Drive[Folder][i]) )){
+                        var $COL = $("<div>",{class:"col d-flex justify-content-center",style:"cursor:pointer"});
+                        var $VIDDIV = $("<div>",{class:"embed-responsive embed-responsive-16by9"});
+                        var $VID    = $("<iframe>",{class:"embed-responsive-item",src:Folder+"/"+Drive[Folder][i]});
+                        $VIDDIV.append($VID);
+                        $COL.append($VIDDIV);
+                        $("#Next_Folder_Video_Content").append($COL);
                     }
                 }
             }
