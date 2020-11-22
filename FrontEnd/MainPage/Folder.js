@@ -158,7 +158,7 @@
                         $("#Next_Folder_Content").append($COL);
                     }else if(Allowed_Video_Extensions.includes( Get_Extension(Drive[Folder][i]) )){
                         var $COL = $("<div>",{class:"col d-flex justify-content-center",style:"cursor:pointer"});
-                        var $VIDDIV = $("<div>",{class:"embed-responsive embed-responsive-16by9"});
+                        var $VIDDIV = $("<div>",{class:"embed-responsive"});
                         var $VID    = $("<iframe>",{class:"embed-responsive-item",src:Folder+"/"+Drive[Folder][i]});
                         $VIDDIV.append($VID);
                         $COL.append($VIDDIV);
