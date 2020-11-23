@@ -35,7 +35,6 @@ app.use(express.urlencoded());
 app.use(express.json());
 
 var Restricted_Komas = {
-  "Dr.Random" : "Mrrandom0829",
   "admin"     : "admin",
 };
 
