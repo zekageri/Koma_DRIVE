@@ -233,11 +233,18 @@ body {
   /*position: absolute;*/
   padding-bottom: 1em;
 }
+.messages .text {
+  float:right;
+}
+.messages .reply{
+  float:left;
+}
 .chat-app_content .message {
   width: calc(100% - 2em);
   padding: 0.75em;
   background: white;
   margin-top: 0.25em;
+  margin-right: 1px;
   border-radius: 16px;
   margin-left: 2em;
   background: -webkit-gradient(linear, left top, right top, from(#00c6ff), to(#0072ff));
