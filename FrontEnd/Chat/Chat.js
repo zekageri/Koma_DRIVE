@@ -135,6 +135,7 @@ function chatInit(selector) {
         if(FirstInput){
           FirstInput = false;
           Set_Name(msg);
+          myName = msg;
         }
         connection.send(msg);
         $(this).val('');

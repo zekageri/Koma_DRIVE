@@ -210,7 +210,7 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  overflow: auto;
+  /*overflow: auto;*/
   margin: 0 .5em;
 }
 .chat-app_content::-webkit-scrollbar {
@@ -227,10 +227,10 @@ body {
   flex-wrap: wrap;
   -webkit-box-align: end;
           align-items: flex-end;
-  overflow: auto;
+  /*overflow: auto;*/
   padding: 0 1em;
-  position: absolute;
-  padding-bottmo: 1em;
+  /*position: absolute;*/
+  padding-bottom: 1em;
 }
 .chat-app_content .message {
   width: calc(100% - 2em);
