@@ -5,11 +5,14 @@
 }
 
 body {
-  height: 99vh;
-  width: 100vw;
+  height: 100vh;
+  with: 100vw;
   background: #141E30;
+  /* fallback for old browsers */
+  /* Chrome 10-25, Safari 5.1-6 */
   background: -webkit-gradient(linear, left top, right top, from(#243B55), to(#141E30));
   background: linear-gradient(to right, #243B55, #141E30);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .chat-app {
@@ -197,7 +200,7 @@ body {
   box-shadow: 0 0 0 2px white;
 }
 .chat-app_header .content {
-  width: calc(100% - 60px - 1em);
+  width: calc(100% - 48px - 1em);
 }
 
 .chat-app_content {
@@ -227,7 +230,7 @@ body {
   overflow: auto;
   padding: 0 1em;
   position: absolute;
-  padding-bottom: 1em;
+  padding-bottmo: 1em;
 }
 .chat-app_content .message {
   width: calc(100% - 2em);

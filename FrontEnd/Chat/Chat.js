@@ -39,12 +39,12 @@ function chatInit(selector) {
   
 
   function Assemble_Message(Name,Message,Color,IsReply){
-    var DIV_CLASS = "message ";
-    if(IsReply){DIV_CLASS += "reply";}
-    var $MSG_DIV = $("<div>",{class:DIV_CLASS,color:Color});
+    var DIV_CLASS = "message";
+    if(IsReply){DIV_CLASS += " reply";}
+    var $MSG_DIV = $("<div>",{class:DIV_CLASS});
     var $NAME    = $("<h1>",{style:"color:"+Color+";font-size:20px;",text:Name});
     var $MSG_TEXT = $("<p>",{class:"text",text:Message});
-    $MSG_DIV.append($NAME);
+    //$MSG_DIV.append($NAME);
     $MSG_DIV.append($MSG_TEXT);
     return $MSG_DIV;
   }
