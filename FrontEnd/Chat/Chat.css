@@ -210,7 +210,8 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  /*overflow: auto;*/
+  overflow-y: auto;
+  overflow-x: hidden;
   margin: 0 .5em;
 }
 .chat-app_content::-webkit-scrollbar {
