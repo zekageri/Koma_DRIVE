@@ -7,7 +7,7 @@ function chatInit(selector) {
         
         window.setTimeout(() => {
           chat.classList.add('is-active')
-        }, 1000)
+        }, 100)
         
         toggles.forEach( toggle => {
           toggle.addEventListener('click', () => {
@@ -44,7 +44,7 @@ function chatInit(selector) {
     var $MSG_DIV = $("<div>",{class:DIV_CLASS});
     var $NAME    = $("<h1>",{style:"color:"+Color+";font-size:20px;",text:Name});
     var $MSG_TEXT = $("<p>",{class:"text",text:Message});
-    //$MSG_DIV.append($NAME);
+    $MSG_DIV.append($NAME);
     $MSG_DIV.append($MSG_TEXT);
     return $MSG_DIV;
   }
@@ -55,6 +55,11 @@ function chatInit(selector) {
 
   function Set_Name(Name){
     setCookie("USERNAME", Name, 365);
+  }
+  function Auto_Scroll_Down(){
+    console.log("Scrolling Down");
+    var myDiv = document.getElementById("content");
+    myDiv.scrollTop = myDiv.scrollHeight;
   }
   /** CHAAAT */
   $(function () {
@@ -118,9 +123,11 @@ function chatInit(selector) {
         input.removeAttr('disabled'); 
         if(json.data.author !== myName){IsReply = true;}
         content.append( Assemble_Message(json.data.author,json.data.text,json.data.color,IsReply) );
+        
       } else {
         console.log('Hmm..., I\'ve never seen JSON like this:', json);
       }
+      setTimeout(Auto_Scroll_Down, 1000);
     };
     /**
      * Send message when user presses Enter key

@@ -31,6 +31,7 @@
   -webkit-transition: all 2s;
   transition: all 0.5s;
 }
+
 .btn-group-fab.active .btn-sub:nth-child(2) {
   bottom: 60px;
 }
@@ -40,10 +41,12 @@
 .btn-group-fab.active .btn-sub:nth-child(4) {
   bottom: 160px;
 }
-.btn-group-fab .btn-sub:nth-child(5) {
+.btn-group-fab.active .btn-sub:nth-child(5) {
   bottom: 210px;
 }
-
+.btn-group-fab .btn-sub:nth-child(6) {
+  bottom: 260px;
+}
 /** ICON PICKER **/
 .iconcontent{
     width: 100%;

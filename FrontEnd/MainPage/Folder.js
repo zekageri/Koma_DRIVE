@@ -240,6 +240,8 @@
                     $('#CreateFolderModal').modal();
                 }else if($(this).prop("title") == "Upload"){
                     $("#UploadFileModal").modal();
+                }else if($(this).prop("title") == "Koma_Chat"){
+                    window.location.href = "/Chat";
                 }
             });
             $('has-tooltip').tooltip();
